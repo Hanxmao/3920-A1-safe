@@ -1,0 +1,29 @@
+<%- include("templates/header", {scripts: ["https://code.jquery.com/jquery-3.6.3.js"]}) %> 
+    <h1>Groups</h1>
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Room Name</th>
+                <th scope="col">Last Message</th>
+                <th scope="col"># of Unread Messages</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% rooms.forEach(room => { %>
+            <tr>
+                <td>
+                    <a
+                        href="rooms/<%= room.room_id %>"
+                        ><%= room.name %></a
+                    >
+                </td>
+                <td><%= room.last_message_time?new Date(room.last_message_time).toLocaleString():"" %></td>
+                <td><%= room.unread_message_count %></td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <span>Number of rooms:</span> <span><%= rooms.length %></span>
+    <br>
+    <a href="/createRoom">Create a new group</a>
+<%- include("templates/footer") %> 

@@ -29,7 +29,7 @@ async function createUser(postData) {
 
 async function getUsers(postData) {
 	let getUsersSQL = `
-		SELECT username, password
+		SELECT user_id, username
 		FROM user;
 	`;
 	
@@ -71,5 +71,6 @@ async function getUser(postData) {
 		return false;
 	}
 }
+
 
 module.exports = {createUser, getUsers, getUser};

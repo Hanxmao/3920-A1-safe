@@ -1,0 +1,19 @@
+<%- include("templates/header") %>
+    <div class="form-container">
+        <h2 class="form-title">Create Room</h2>
+        <form action='/creatingRoom' method='post'>
+            <input name='room_name' type='text' placeholder='Enter the room name' required>
+            <div class="checkbox-list">
+                <% inviteUsers.forEach(user=> {%>
+                    <% if(user.username != username) { %>
+                    <label>
+                        <input type="checkbox" name="invitedUser" value="<%= user.user_id %>">
+                        <%= user.username %>
+                    </label><br>
+                    <% } %>
+                    <% }) %>
+            </div>
+            <button>Create Now</button>
+        </form>
+    </div>
+    <%- include("templates/footer") %>

@@ -1,0 +1,63 @@
+<%- include("templates/header", {scripts: ["https://code.jquery.com/jquery-3.6.3.js"]}) %> 
+<div>
+    <div>
+        <form action='/inviteUsers?room_id=<%=room_id%>' method='post'>
+            <div>
+                <% canInvitedUsers.forEach(user=> {%>
+                    <label>
+                        <input type="checkbox" name="invitedUser" value="<%= user.user_id %>">
+                        <%= user.username %>
+                    </label><br>
+                    <% }) %>
+                <button>Invite</button>
+            </div>
+        </form>
+    </div>
+    <div style="flex-direction: column;">
+        <% read_messages.forEach(message => { %>
+            <% if(message.username !== username ) {%>
+                <div style="margin-left: auto;">
+                    <span><%= message.username %></span>
+                    <span><%= message.sent_datetime %></span>
+                    <p style="font-size: larger;"><%= message.text %></p>
+                </div>
+            <% } else {%>
+                <div>
+                    <span><%= message.username %></span>
+                    <span><%= message.sent_datetime %></span>
+                    <p><%= message.text %></p>
+                </div>
+            <% } %>
+        <% }) %>
+    </div>
+    <% if(unread_messages.length>0) {%>
+        <h2>Unread Messages</h2>
+        <% } %>
+    <div style="flex-direction: column; ">
+        <% unread_messages.forEach(message => { %>
+            <% if(message.username == username ) {%>
+                <div style="flex-direction: row; justify-content: space-between;">
+                    <div></div>
+                    <div style="margin-left: auto;">
+                        <span><%= message.username %></span>
+                        <span><%= message.sent_datetime %></span>
+                        <p style="font-size: larger;"><%= message.text %></p>
+                    </div>
+
+                </div>
+            <% } else {%>
+                <div>
+                    <span><%= message.username %></span>
+                    <span><%= message.sent_datetime %></span>
+                    <p><%= message.text %></p>
+                </div>
+            <% } %>
+        <% }) %>
+    </div>
+    <form action='/sendText' method='post' class="message-form">
+        <input type="hidden" name="room_id" value="<%=room_id%>">
+        <input name='text' type='text' placeholder='Enter text...' class="message-input">
+        <button class="message-button">Send Message</button>
+    </form>
+</div>
+<%- include("templates/footer") %> 

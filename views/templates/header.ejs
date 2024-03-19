@@ -12,3 +12,10 @@
     <% } %> 
 </head>
 <body>
+    <% if(username) { %>
+
+        <a href="/" style="font-size:large;display: inline;">Home</a> 
+        <p style="font-size: large;display: inline;">Hello <%= username %>!</p>
+        <a href="/logout" style="font-size:large;display: inline;">Logout</a> 
+        
+     <% } %>
